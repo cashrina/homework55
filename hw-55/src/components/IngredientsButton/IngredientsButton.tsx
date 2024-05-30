@@ -8,7 +8,7 @@ interface IngredientsButtonProps extends React.PropsWithChildren {
     onRemove: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const IngredientsButton: React.FC<IngredientsButtonProps>= ({ingredientImage, ingredientName, onAddIngredient, sumIngredients}) => {
+const IngredientsButton: React.FC<IngredientsButtonProps>= ({ingredientImage, ingredientName, onAddIngredient, sumIngredients, onRemove}) => {
 
     const count = sumIngredients();
 
@@ -17,7 +17,7 @@ const IngredientsButton: React.FC<IngredientsButtonProps>= ({ingredientImage, in
             <img alt={'image'} key={`${ingredientName}-image`} src={ingredientImage} style={{width: '100px', height: '100px'}} />
             <button className="ingredients__button" onClick={onAddIngredient}>{ingredientName}</button>
             <p>x {count}</p>
-            <button>delete</button>
+            <button onClick={onRemove}>delete</button>
         </div>
     );
 };

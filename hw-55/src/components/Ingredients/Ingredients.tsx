@@ -5,6 +5,7 @@ import saladImage from '../../assets/salad.png';
 import baconImage from '../../assets/bacan.png';
 import  {useState} from "react";
 import IngredientsButton from "../IngredientsButton/IngredientsButton.tsx";
+import Burger from "../Burger/Burger.tsx";
 
 
 interface Ingredient {
@@ -48,6 +49,32 @@ const Ingredients = () => {
         const count = ingredients.filter(item => item.name === value);
         return count[0].count;
     };
+    const removeIngredient = (deleteIngredient:string) => {
+        setIngredients((prevState) => {
+            return prevState.map((ingredient) => {
+                if (ingredient.name === deleteIngredient) {
+                    if (ingredient.count > 0) {
+                        return {...ingredient, count: ingredient.count - 1};
+                    }
+                }
+                return ingredient;
+            });
+        });
+    };
+
+    const getTotalPrise  = () => {
+        let emptySum = 0;
+        ingredients.forEach(item => {
+            INGREDIENTS.forEach(info => {
+                if (item.name === info.name) {
+                    if (item.count > 0) {
+                        emptySum += item.count * info.price;
+                    }
+                }
+            });
+        });
+        return emptySum;
+    };
 
     return (
         <div className="container">
@@ -56,19 +83,12 @@ const Ingredients = () => {
                     <IngredientsButton ingredientName = {item.name}
                                        ingredientImage = {item.image}
                                        onAddIngredient = {() => addIngredient(item.name)}
-                                       sumIngredients = {() => getCount(item.name)}/>
+                                       sumIngredients = {() => getCount(item.name)}
+                                       onRemove={() => removeIngredient(item.name)}/>
                 </div>
             ))}
-            <div className="Burger">
-                <div className="BreadTop">
-                    <div className="Seeds1"></div>
-                    <div className="Seeds2"></div>
-                </div>
-                <div className="Salad"></div>
-                <div className="Cheese"></div>
-                <div className="Meat"></div>
-                <div className="BreadBottom"></div>
-                <div className="price">Price: <p>30</p></div>
+            <div>
+                <Burger onPrise={() => getTotalPrise()}/>
             </div>
         </div>
 
