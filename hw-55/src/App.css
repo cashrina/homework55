@@ -7,10 +7,24 @@
 
 .container {
   display: flex;
+  flex-direction: column;
 }
 
 .ingredient {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.ingredient-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.ingredients button {
+  margin-left: 10px;
+  display: inline-block;
 }
 
 .BreadBottom {

@@ -3,7 +3,7 @@ import meatImage from '../../assets/meat.png';
 import cheeseImage from '../../assets/cheese.png';
 import saladImage from '../../assets/salad.png';
 import baconImage from '../../assets/bacan.png';
-import React, {useState} from "react";
+import  {useState} from "react";
 import IngredientsButton from "../IngredientsButton/IngredientsButton.tsx";
 
 
@@ -33,19 +33,21 @@ const Ingredients = () => {
         {name: 'Bacon', price: 60, image: baconImage},
     ];
 
-    const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
-
+    const addIngredient = (name: string) => {
         setIngredients((prevState) => {
-            return prevState.map((countin) => {
-                return {
-                    ...countin,
-                    event.target.count: countin.count + 1,
-                };
+            return prevState.map((ingredient) => {
+                if (ingredient.name === name) {
+                return {...ingredient, count: ingredient.count + 1};
+            }
+            return ingredient;
             });
         });
     };
-    console.log(ingredients);
 
+    const getCount = (value: string) => {
+        const count = ingredients.filter(item => item.name === value);
+        return count[0].count;
+    };
 
     return (
         <div className="container">
@@ -53,9 +55,8 @@ const Ingredients = () => {
                 <div className="ingredient">
                     <IngredientsButton ingredientName = {item.name}
                                        ingredientImage = {item.image}
-                                       onAddIngredient = {(event) => addIngredient(event)}
-                                       sumIngredients = {addIngredient}/>
-
+                                       onAddIngredient = {() => addIngredient(item.name)}
+                                       sumIngredients = {() => getCount(item.name)}/>
                 </div>
             ))}
             <div className="Burger">
@@ -73,5 +74,4 @@ const Ingredients = () => {
 
     );
 };
-
 export default Ingredients;
