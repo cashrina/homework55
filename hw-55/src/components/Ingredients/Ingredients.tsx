@@ -3,9 +3,9 @@ import meatImage from '../../assets/meat.png';
 import cheeseImage from '../../assets/cheese.png';
 import saladImage from '../../assets/salad.png';
 import baconImage from '../../assets/bacan.png';
-import  {useState} from "react";
+import {useState} from "react";
 import IngredientsButton from "../IngredientsButton/IngredientsButton.tsx";
-import Burger from "../Burger/Burger.tsx";
+import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.tsx";
 
 
 interface Ingredient {
@@ -43,16 +43,7 @@ const Ingredients = () => {
             return ingredient;
             });
         });
-        const countIngredient = ingredients.find((ingredient) => ingredient.name === name);
-        console.log(countIngredient);
-        const Burger = document.getElementById("Burger");
-        if (Burger) {
-            const meatBurger = document.createElement("div");
-            meatBurger.className = "Meat";
-            Burger.appendChild(meatBurger);
-        }
     };
-
 
     const getCount = (value: string) => {
         const count = ingredients.filter(item => item.name === value);
@@ -84,22 +75,34 @@ const Ingredients = () => {
         });
         return emptySum;
     };
+    const total:number = 30 + getTotalPrise();
 
     return (
         <div className="container">
             <div className="ingredients">
-                {INGREDIENTS.map(item => (
-                    <IngredientsButton ingredientName = {item.name}
+                {INGREDIENTS.map((item,index) => (
+                    <IngredientsButton key={index}
+                                       ingredientName = {item.name}
                                        ingredientImage = {item.image}
                                        onAddIngredient = {() => addIngredient(item.name)}
                                        sumIngredients = {() => getCount(item.name)}
                                        onRemove={() => removeIngredient(item.name)}/>
-
                 ))}
             </div>
 
             <div className="burgerIngredient">
-                <Burger onPrise={() => getTotalPrise()}/>
+                <div className="Burger">
+                    <div className="BreadTop">
+                        <div className="Seeds1"></div>
+                        <div className="Seeds2"></div>
+                    </div>
+                    {ingredients.map(((createIngredient, index) => (
+                        <BurgerIngredient key={index} name={createIngredient.name} count={createIngredient.count}/>
+                    )))}
+                    <div className="BreadBottom"></div>
+                    <div className="price">Price: <p>{total}</p></div>
+                </div>
+
             </div>
         </div>
 
