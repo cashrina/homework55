@@ -43,7 +43,16 @@ const Ingredients = () => {
             return ingredient;
             });
         });
+        const countIngredient = ingredients.find((ingredient) => ingredient.name === name);
+        console.log(countIngredient);
+        const Burger = document.getElementById("Burger");
+        if (Burger) {
+            const meatBurger = document.createElement("div");
+            meatBurger.className = "Meat";
+            Burger.appendChild(meatBurger);
+        }
     };
+
 
     const getCount = (value: string) => {
         const count = ingredients.filter(item => item.name === value);
@@ -78,16 +87,18 @@ const Ingredients = () => {
 
     return (
         <div className="container">
-            {INGREDIENTS.map(item => (
-                <div className="ingredient">
+            <div className="ingredients">
+                {INGREDIENTS.map(item => (
                     <IngredientsButton ingredientName = {item.name}
                                        ingredientImage = {item.image}
                                        onAddIngredient = {() => addIngredient(item.name)}
                                        sumIngredients = {() => getCount(item.name)}
                                        onRemove={() => removeIngredient(item.name)}/>
-                </div>
-            ))}
-            <div>
+
+                ))}
+            </div>
+
+            <div className="burgerIngredient">
                 <Burger onPrise={() => getTotalPrise()}/>
             </div>
         </div>

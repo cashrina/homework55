@@ -1,4 +1,5 @@
 import React from "react";
+import stockImage from '../../assets/stock.png';
 
 interface IngredientsButtonProps extends React.PropsWithChildren {
     ingredientImage: string,
@@ -14,10 +15,10 @@ const IngredientsButton: React.FC<IngredientsButtonProps>= ({ingredientImage, in
 
     return (
         <div className="ingredient-btn">
-            <img alt={'image'} key={`${ingredientName}-image`} src={ingredientImage} style={{width: '100px', height: '100px'}} />
+            <img alt={'image'} key={`${ingredientName}-image`} src={ingredientImage} style={{width: '80px', height: '80px'}} className="ingredients__image" />
             <button className="ingredients__button" onClick={onAddIngredient}>{ingredientName}</button>
             <p>x {count}</p>
-            <button onClick={onRemove}>delete</button>
+            <button onClick={onRemove} className="stock"><img src={stockImage} alt="Stock Image" style={{width: '70px', height: '70px'}}/></button>
         </div>
     );
 };
